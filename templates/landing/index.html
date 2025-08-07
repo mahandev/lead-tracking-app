@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualPhone Pro - Never Miss a Call Again</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #f8fafc;
+            --accent-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .btn-primary-custom {
+            background: var(--accent-color);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary-custom:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary-custom {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 13px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary-custom:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .stats-section {
+            background: white;
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .features-section {
+            padding: 100px 0;
+            background: var(--secondary-color);
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .testimonial-card {
+            background: var(--secondary-color);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .testimonial-company {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--text-dark) 0%, #374151 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .btn-secondary-custom {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'landing_page' %}">
+                <i class="fas fa-phone-alt me-2"></i>VirtualPhone Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pricing_page' %}">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Reviews</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary-custom" href="{% url 'signup' %}">Get Started</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Never Miss a Call, Never Lose a Lead</h1>
+                        <p class="hero-subtitle">Transform every missed call into a captured opportunity with our intelligent virtual phone system. Get real-time analytics, call recordings, and automated lead management.</p>
+                        <div class="hero-buttons">
+                            <a href="{% url 'signup' %}" class="btn-primary-custom">Start Free Trial</a>
+                            <a href="#features" class="btn-secondary-custom">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <i class="fas fa-phone fa-10x" style="opacity: 0.1;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-card">
+                        <span class="stat-number">{{ stats.total_calls_handled|floatformat:0 }}+</span>
+                        <div class="stat-label">Calls Handled</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-card">
+                        <span class="stat-number">{{ stats.businesses_served }}+</span>
+                        <div class="stat-label">Businesses Served</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-card">
+                        <span class="stat-number">{{ stats.average_response_time }}</span>
+                        <div class="stat-label">Avg Response Time</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-card">
+                        <span class="stat-number">{{ stats.missed_call_reduction }}</span>
+                        <div class="stat-label">Missed Call Reduction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features for Modern Businesses</h2>
+            <p class="section-subtitle">Everything you need to capture, manage, and convert leads through intelligent call handling</p>
+            
+            <div class="row">
+                {% for feature in features %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-{{ feature.icon }}"></i>
+                        </div>
+                        <h3 class="feature-title">{{ feature.title }}</h3>
+                        <p class="feature-description">{{ feature.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Join thousands of businesses that trust VirtualPhone Pro</p>
+            
+            <div class="row">
+                {% for testimonial in testimonials %}
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= testimonial.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <p class="testimonial-text">"{{ testimonial.text }}"</p>
+                        <div class="testimonial-author">{{ testimonial.name }}</div>
+                        <div class="testimonial-company">{{ testimonial.company }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Business?</h2>
+            <p class="cta-subtitle">Join thousands of businesses using VirtualPhone Pro to capture more leads and grow faster</p>
+            <a href="{% url 'signup' %}" class="btn-primary-custom">Start Your Free Trial</a>
+        </div>
+    </section>
+
+    
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">VirtualPhone Pro</h5>
+                    <p class="text-light">The complete virtual phone solution for modern businesses.</p>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Product</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Features</a></li>
+                        <li><a href="{% url 'pricing_page' %}" class="text-light">Pricing</a></li>
+                        <li><a href="#" class="text-light">API</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">About</a></li>
+                        <li><a href="#" class="text-light">Contact</a></li>
+                        <li><a href="#" class="text-light">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="mb-3">Contact Info</h6>
+                    <p class="text-light">
+                        <i class="fas fa-envelope me-2"></i>support@virtualphonepro.com<br>
+                        <i class="fas fa-phone me-2"></i>1-800-VIRTUAL
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 VirtualPhone Pro. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3">Privacy Policy</a>
+                    <a href="#" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

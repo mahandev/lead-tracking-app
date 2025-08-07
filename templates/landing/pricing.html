@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - VirtualPhone Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #f8fafc;
+            --accent-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            padding-top: 80px;
+        }
+
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .pricing-header {
+            text-align: center;
+            padding: 80px 0 60px;
+            background: var(--secondary-color);
+        }
+
+        .pricing-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .pricing-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .pricing-cards {
+            padding: 60px 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+        }
+
+        .pricing-card.recommended {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .pricing-card.recommended::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card.recommended:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-period {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-features li i {
+            color: var(--accent-color);
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-plan-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-plan-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-plan-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-plan-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .faq-section {
+            padding: 80px 0;
+            background: var(--secondary-color);
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'landing_page' %}">
+                <i class="fas fa-phone-alt me-2"></i>VirtualPhone Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'landing_page' %}#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pricing_page' %}">Pricing</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" href="{% url 'signup' %}">Get Started</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pricing Header -->
+    <section class="pricing-header">
+        <div class="container">
+            <h1 class="pricing-title">Simple, Transparent Pricing</h1>
+            <p class="pricing-subtitle">Choose the perfect plan for your business needs. No hidden fees, cancel anytime.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="pricing-cards">
+        <div class="container">
+            <div class="row">
+                {% for plan in plans %}
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-card {% if plan.recommended %}recommended{% endif %}">
+                        <h3 class="plan-name">{{ plan.name }}</h3>
+                        <div class="plan-price">${{ plan.price }}</div>
+                        <div class="plan-period">per {{ plan.period }}</div>
+                        
+                        <ul class="plan-features">
+                            {% for feature in plan.features %}
+                            <li>
+                                <i class="fas fa-check"></i>
+                                {{ feature }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <button class="btn-plan {% if plan.recommended %}btn-plan-primary{% else %}btn-plan-secondary{% endif %}">
+                            {% if user.is_authenticated %}
+                                Choose {{ plan.name }}
+                            {% else %}
+                                Start Free Trial
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-item">
+                        <button class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How quickly can I set up my virtual number?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq1" class="collapse faq-answer">
+                            Setup takes less than 5 minutes. Once you sign up, you'll get instant access to your dashboard and can configure your virtual number immediately.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Can I port my existing number?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq2" class="collapse faq-answer">
+                            Yes! We support number porting from most carriers. The process typically takes 3-5 business days and our support team will guide you through it.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            What happens to my calls if I'm not available?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq3" class="collapse faq-answer">
+                            All calls are automatically captured as leads in your dashboard. You can set up voicemail, call forwarding, or automated responses to ensure no opportunity is missed.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            Do you offer integrations with CRM systems?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq4" class="collapse faq-answer">
+                            Yes, we integrate with popular CRM systems like Salesforce, HubSpot, and Pipedrive. Custom integrations are available on Enterprise plans.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            Is there a free trial?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq5" class="collapse faq-answer">
+                            Absolutely! We offer a 14-day free trial with full access to all features. No credit card required to start.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">VirtualPhone Pro</h5>
+                    <p class="text-light">The complete virtual phone solution for modern businesses.</p>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Product</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'landing_page' %}#features" class="text-light">Features</a></li>
+                        <li><a href="{% url 'pricing_page' %}" class="text-light">Pricing</a></li>
+                        <li><a href="#" class="text-light">API</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">About</a></li>
+                        <li><a href="#" class="text-light">Contact</a></li>
+                        <li><a href="#" class="text-light">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="mb-3">Contact Info</h6>
+                    <p class="text-light">
+                        <i class="fas fa-envelope me-2"></i>support@virtualphonepro.com<br>
+                        <i class="fas fa-phone me-2"></i>1-800-VIRTUAL
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
